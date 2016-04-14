@@ -65,13 +65,18 @@ function pxToInch(pixels) {
 //endregion helper functions
 
 
+var UNIT = {
+    metric: 'metric',
+    inch: 'inch',
+    pixels: 'pixels'
+}
 
 var defaultSettings = {
     position: 'right', // right , left
     backgroundColor: 'lightpink',
     textColor: 'white',
     numberColor: 'black',
-    unit: 'metric' // pixel , metric , inches
+    unit: UNIT.metric
 }
 
 
@@ -83,23 +88,30 @@ var scrollculator = function (settings) {
     var srollculatorElement = document.getElementById('scrollculator');
     var pixelCountElement = document.getElementById('pixelCount');
     var unitElement = document.getElementById('unit');
+    var resetCounterBtn = document.getElementById('resetCounter');
+
 
     var scrollculatorStorageKey = 'scrollculator';
+
+    // this should check if there are stored settings in local storage. and OR passed from the init
+    function initSettings() {}
+
+    initSettings();
 
 
     function updateScrollAmount(pixels, unit) {
         var scrollAmount;
         var unitText;
         switch (unit) {
-        case 'pixels':
+        case UNIT.pixels:
             scrollAmount = pixels;
             unitText = 'Pixels';
             break;
-        case 'metric':
+        case UNIT.metric:
             scrollAmount = pxToCm(pixels);
             unitText = 'cm';
             break;
-        case 'inch':
+        case UNIT.inch:
             scrollAmount = pxToInch(pixels);
             unitText = 'inch';
             break;
@@ -125,7 +137,7 @@ var scrollculator = function (settings) {
             totalPixelsScrolled: pixelCount
         });
         hide();
-    }, 500);
+    }, 1000);
 
     function hide() {
         srollculatorElement.classList.remove('visible');
@@ -133,6 +145,26 @@ var scrollculator = function (settings) {
 
     function show() {
         srollculatorElement.classList.add('visible');
+    }
+
+    function resetCounter() {
+        pixelCount = 0;
+        updateAndShow();
+    }
+
+    function updateAndShow() {
+        updateScrollAmount(pixelCount, defaultSettings.unit);
+
+        show();
+        // this will write to local storage the total pixels scrolled after 250ms from when a user stopa scrolling
+        eficientWriteToLocalStorage();
+    }
+
+
+    function changeUnit(unit) {
+        defaultSettings.unit = UNIT[unit];
+
+        updateScrollAmount(pixelCount, defaultSettings.unit);
     }
 
     function registerEvents() {
@@ -152,23 +184,28 @@ var scrollculator = function (settings) {
         }
 
 
-
+        // scroll event on window
         window.addEventListener("scroll", function () {
             var newTop = window.pageYOffset;
             if (newTop !== top) {
                 pixelCount += Math.abs(newTop - top);
                 top = newTop;
             }
-
-
-            updateScrollAmount(pixelCount, defaultSettings.unit);
-
-            show();
-            // this will write to local storage the total pixels scrolled after 250ms from when a user stopa scrolling
-            eficientWriteToLocalStorage();
-
-
+            updateAndShow();
         }, false);
+
+
+        // reset counter event
+        resetCounterBtn.addEventListener('click', resetCounter);
+
+
+
+        var unitRadioGroup = document.getElementsByName('scrollculatorUnit');
+        for (var i = 0; i < unitRadioGroup.length; i++) {
+            unitRadioGroup[i].addEventListener('change', function () {
+                changeUnit(this.value);
+            })
+        }
 
     }
 

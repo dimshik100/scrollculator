@@ -14,8 +14,15 @@
 </head>
 
 <body>
-
+    <h1>Scrollculator</h1>
+    <h3>Keep on scrolling :)</h3>
     <div class="box"></div>
+    <p>Scrollculator is a JavaScript plugin that counts the distance you scrolled on a website.</p>
+    <p>The plugin has no library dependency, and you can add it to any website.</p>
+    <p>Each time the page is scrolled the plugin counts the amount of pixels and updates the total distance.</p>
+    <p>It uses local storage to save the total distance for each user that browses your website.</p>
+    <p>The distance can be displayed in 3 types of metrics: pixels, metric, inches. This can be changed by the user in the options popup</p>
+    <p>The user can also close the notification and prevent it from appearing on the next time he browses this website. He can then return it by clearing the browser data, but his total distance will be cleared as well.</p>
     <div class="box"></div>
     <div class="box"></div>
     <div class="scrollable-box">
@@ -29,7 +36,49 @@
     <div class="box"></div>
     <div class="box"></div>
 
-    <div id="scrollculator">You have scrolled <span id="pixelCount">0</span> <span id="unit">Pixels</span></div>
+    <div id="scrollculator">You have scrolled <span id="pixelCount">0</span> <span id="unit">Pixels</span>
+        <br>
+        <button class="settings">Settings</button>
+        <button class="close">Close</button>
+    </div>
+
+    <div class="scrollculator-settings-modal">
+        <h3>Scrollculator Settings</h3>
+        <ul>
+            <li>
+                Position:
+                <input type="radio" name="scrollculatorPosition" id="leftPos">
+                <label for="leftPos">Left</label>
+                <input type="radio" name="scrollculatorPosition" id="rightPos" checked>
+                <label for="rightPos">Right</label>
+            </li>
+            <li>
+                Unit:
+                <input type="radio" name="scrollculatorUnit" id="pixels" value="pixels">
+                <label for="pixels">Pixels</label>
+                <input type="radio" name="scrollculatorUnit" id="metric" value="metric" checked>
+                <label for="metric">Metric</label>
+                <input type="radio" name="scrollculatorUnit" id="inches" value="inch">
+                <label for="inches">Inches</label>
+            </li>
+            <li>
+                Reset counter:
+                <button id="resetCounter">Reset</button>
+            </li>
+            <li></li>
+        </ul>
+    </div>
+    <div class="scrollculator-close-modal">
+        <h3>Close Scrollculator ?</h3>
+        <h4>We won't be able to count your scrolls anymore :(</h4>
+        <div>
+            <button class="close-scrollculator-btn">Close</button>
+            <button class="keep-counting-scrollculator-btn">Keep Counting</button>
+            <br>
+            <input type="checkbox" id="dontShowAgain" value="">
+            <label for="dontShowAgain">Don't show scrollculator again</label>
+        </div>
+    </div>
 
 
 
