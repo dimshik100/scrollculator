@@ -12,3 +12,21 @@ All plugin settings are customizable:
   * Font size
   * Color
   * Position
+
+
+
+## Author
+- [Dima Vishnevetsky](https://github.com/dimshik100)
+
+
+## Instalation
+
+
+## Usage
+
+
+## Contributing
+
+* Fork this repository.
+* Make your contribution.
+* Send a PR
