@@ -14,6 +14,10 @@ All plugin settings are customizable:
   * Position
 
 
+## Demo
+
+- [Scrollculator](http://dimshik100.github.io/scrollculator/demo.html)
+
 
 ## Author
 - [Dima Vishnevetsky](https://github.com/dimshik100)
